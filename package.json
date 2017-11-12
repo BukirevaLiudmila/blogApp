@@ -1,5 +1,8 @@
 {
   "name": "blogapp",
+  "engines": {
+    "node": ">=8.9"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
