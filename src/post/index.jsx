@@ -19,20 +19,24 @@ class Post extends React.Component {
 		const id = this.props.match.params.id;
 		const searchParams = this.props.location.search;
 		const parsedSearchParams = queryString.parse(searchParams);
+		const keyParam = parsedSearchParams.key ? parsedSearchParams.key : '';
 		this.setState({
-			key: parsedSearchParams.key
+			key: keyParam
 		});
+
 		fetch(`/api/posts/${id}?key=${parsedSearchParams.key}`, {method: 'get'})
-			.then((res) => {
-				return res.json();
+			.then((result) => {
+				return result.json();
 			})
 			.then((result) => {
+				if (result.error) {
+					console.log(result.error);
+					return;
+				}
 				if (result.data) {
 					this.setState({
 						data: result.data
 					});
-				} else if (result.error) {
-					console.log('Ошибка');
 				}
 			});
 	}
@@ -50,18 +54,18 @@ class Post extends React.Component {
 	deletePost() {
 		const id = this.props.match.params.id;
 		fetch(`/api/posts/${id}?key=${this.state.key}`, {method: 'delete'})
-			.then((res) => {
-				return res.json();
+			.then((result) => {
+				return result.json();
 			})
-			.then((res) => {
-				if (res.result) {
+			.then((result) => {
+				if (result.result) {
 					this.setState({
 						data: []
 					});
 					this.showMessage();
-					console.log('Пост успешно удален');
-				} else if (res.error) {
-					console.log('Ошибка');
+				}
+				if (result.error) {
+					console.log(result.error);
 				}
 			});
 	}

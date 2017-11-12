@@ -23,8 +23,9 @@ class NewPost extends React.Component {
 	componentDidMount() {
 		const searchParams = this.props.location.search;
 		const parsedSearchParams = queryString.parse(searchParams);
+		const keyParam = parsedSearchParams.key ? parsedSearchParams.key : '';
 		this.setState({
-			key: parsedSearchParams.key
+			key: keyParam
 		});
 	}
 
@@ -64,18 +65,19 @@ class NewPost extends React.Component {
 				},
 				body: JSON.stringify(data)
 			})
-			.then((res) => res.json())
-			.then((res) => {
-				if (res.result) {
-					console.log('Новый пост успешно добавлен');
+			.then((result) => result.json())
+			.then((result) => {
+				if (result.error) {
+					console.log(result.error);
+					return;
+				}
+				if (result.result) {
 					this.setState({
 						title: '',
 						categories: '',
 						content: ''
 					});
 					this.showMessage('successMessage');
-				} else if (res.error) {
-					console.log('Ошибка');
 				}
 			});
 	}
@@ -113,7 +115,8 @@ class NewPost extends React.Component {
 					<button className="btn"
 						onClick={this.sendNewPost}
 					>
-						Submit</button>
+						Submit
+					</button>
 					<Link className="btn cancel" to={`/?key=${this.state.key}`}>Cancel</Link>
 				</div>
 			</form>

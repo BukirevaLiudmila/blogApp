@@ -15,21 +15,24 @@ class PostsBlock extends React.Component {
 	componentDidMount() {
 		const searchParams = this.props.location.search;
 		const parsedSearchParams = queryString.parse(searchParams);
+		const keyParam = parsedSearchParams.key ? parsedSearchParams.key : '';
 		this.setState({
-			key: parsedSearchParams.key
+			key: keyParam
 		});
 
-		fetch(`/api/posts?key=${parsedSearchParams.key}`, {method: 'get'})
-			.then((res) => {
-				return res.json();
+		fetch(`/api/posts?key=${keyParam}`, {method: 'get'})
+			.then((result) => {
+				return result.json();
 			})
 			.then((result) => {
+				if (result.error) {
+					console.log(result.error);
+					return;
+				}
 				if (result.data) {
 					this.setState({
 						data: result.data
 					});
-				} else if (result.error) {
-					console.log('Ошибка');
 				}
 			});
 	}
