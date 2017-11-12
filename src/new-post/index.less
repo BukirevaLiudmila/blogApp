@@ -1,0 +1,47 @@
+@import "../_variables";
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 7px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid @color-border;
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  outline: none;
+  color: @color-text;
+}
+
+textarea {
+  min-height: 160px;
+  resize: none;
+  padding-right: 10px;
+}
+
+.message-block {
+  font-size: 18px;
+  color: @color-text;
+  border-radius: 5px;
+  padding: 20px;
+
+  &.error {
+    background-color: @color-bg-error;
+  }
+
+  &.success {
+    background-color: @color-bg-success;
+  }
+}
+
+.btn.cancel {
+  .btn-negative();
+}
