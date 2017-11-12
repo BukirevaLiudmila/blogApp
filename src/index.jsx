@@ -22,10 +22,12 @@ const NoMatch = (props) => (<h1>Page not found: {props.location.pathname}</h1>);
 const MainRouter = () => (
 	<Router>
 		<App>
-			<Route exact path="/" component={PostsBlock} />
-			<Route exact path="/post/:id" component={Post} />
-			<Route exact path="/new-post" component={NewPost} />
-			<Route component={NoMatch}/>
+			<Switch>
+				<Route exact path="/" component={PostsBlock} />
+				<Route exact path="/post/:id" component={Post} />
+				<Route exact path="/new-post" component={NewPost} />
+				<Route component={NoMatch}/>
+			</Switch>
 		</App>
 	</Router>
 );
