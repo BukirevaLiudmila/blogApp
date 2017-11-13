@@ -1,4 +1,4 @@
 module.exports = {
-	dbAddress: 'mongodb://liudmila:123456qW@ds259865.mlab.com:59865/blog-bukireva',
+	dbAddress: 'mongodb://user:password@sitename.com:port/dbname',
 	port: 4545
 };
